@@ -65,8 +65,15 @@ def find_index_of_value(in_value, in_array): #, in_last_index):
         print("something went wrong while trying to find index of value")
 
 
+
+# user interaction
+num_of_seams = input("Geben Sie etwas ein\n")
+num_of_seams = int(num_of_seams)
+# print(type(num_of_seams))
+
+
 # read and show original image
-img = cv2.imread("test_image_2.jpg", cv2.IMREAD_COLOR)
+img = cv2.imread("test_image_3.jpg", cv2.IMREAD_COLOR)
 cv2.imshow('Original-Image', img)
 cv2.waitKey(10) # otherwise the image fades out too quickly
 
@@ -180,24 +187,41 @@ def calc_minimal_seam(input_start_index, input_min_engy):
 def delete_seam(input_image, input_seam_coordinates):
     image_height, image_width, _ = input_image.shape
     operating_image = input_image
+    smaller_img = np.zeros((image_height, image_width-1, 3))
+
     for i in range(0, len(input_seam_coordinates)-1):
         x_dim = input_seam_coordinates[i][1]
         operating_image[i][x_dim] = -1
+        print(i, x_dim, operating_image[i][x_dim])
 
-    smaller_img = np.zeros((image_height, image_width-1, 3))
+    for j in range(0, image_height -1):
+        l=0
+        for k in range(0, image_width -1 ): 
+            if np.any(operating_image[j][l] == [255, 255, 255]):
+                l+1
+            else:
+                smaller_img[j][k] = operating_image[j][l]
+            l+1
+
+
+    # print(operating_image)
 
 
     cv2.imwrite('smaller_image.jpg', smaller_img)
+
+    return smaller_img
 
 
 
 # call functions
 def main():
-    step_1 = calc_derivation_with_sobel_cernel(img)
-    step_2 = calc_seams_energie(step_1)
-    step_3 = calc_minimal_seam_start(step_2)
-    step_4 = calc_minimal_seam(step_3, step_2)
-    step_5 = delete_seam(img, step_4)
+    for i in range(num_of_seams-1):
+        step_1 = calc_derivation_with_sobel_cernel(img)
+        step_2 = calc_seams_energie(step_1)
+        step_3 = calc_minimal_seam_start(step_2)
+        step_4 = calc_minimal_seam(step_3, step_2)
+        step_5 = delete_seam(img, step_4)
+        img = cv2.imread("smaller_image.jpg", cv2.IMREAD_COLOR)
 main()
 
 
