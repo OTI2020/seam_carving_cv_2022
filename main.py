@@ -24,8 +24,6 @@
 import time
 import cv2
 import numpy as np
-# from numpy.core.multiarray import array
-# from scipy._lib.doccer import doc_replace
 from scipy.ndimage.filters import convolve
 
 
@@ -73,9 +71,11 @@ num_of_seams = int(num_of_seams)
 
 
 # read and show original image
-img = cv2.imread("test_image_3.jpg", cv2.IMREAD_COLOR)
-cv2.imshow('Original-Image', img)
-cv2.waitKey(10) # otherwise the image fades out too quickly
+def read_image():
+    global img
+    img = cv2.imread("test_image_0.jpg", cv2.IMREAD_COLOR)
+    cv2.imshow('Original-Image', img)
+    cv2.waitKey(10) # otherwise the image fades out too quickly
 
 
 # energie function
@@ -215,13 +215,15 @@ def delete_seam(input_image, input_seam_coordinates):
 
 # call functions
 def main():
+    read_image()
     for i in range(num_of_seams-1):
         step_1 = calc_derivation_with_sobel_cernel(img)
         step_2 = calc_seams_energie(step_1)
         step_3 = calc_minimal_seam_start(step_2)
         step_4 = calc_minimal_seam(step_3, step_2)
         step_5 = delete_seam(img, step_4)
-        img = cv2.imread("smaller_image.jpg", cv2.IMREAD_COLOR)
+        # print(img)
+        globals()[img] = cv2.imread("smaller_image.jpg", cv2.IMREAD_COLOR)
 main()
 
 
