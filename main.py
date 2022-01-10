@@ -65,7 +65,8 @@ def find_index_of_value(in_value, in_array): #, in_last_index):
 
 
 # user interaction
-num_of_seams = input("Geben Sie etwas ein\n")
+print("Wenn Sie eine Zahl > 1 eingeben, erscheint wahrscheinlich eine Errormeldung")
+num_of_seams = input("Geben Sie die Anzahl der zu entfernenden Seams ein\n")
 num_of_seams = int(num_of_seams)
 # print(type(num_of_seams))
 
@@ -213,10 +214,11 @@ def delete_seam(input_image, input_seam_coordinates):
 
 
 
-# call functions
+# call functions with iteration
 def main():
     read_image()
-    for i in range(num_of_seams-1):
+    #for i in range(num_of_seams-1):
+    try:
         step_1 = calc_derivation_with_sobel_cernel(img)
         step_2 = calc_seams_energie(step_1)
         step_3 = calc_minimal_seam_start(step_2)
@@ -224,10 +226,12 @@ def main():
         step_5 = delete_seam(img, step_4)
         # print(img)
         globals()[img] = cv2.imread("smaller_image.jpg", cv2.IMREAD_COLOR)
+    except:
+        print("the overwrite of `img` does not work")
 main()
 
 
-# stop counting time - claculate time differnece
+# stop "counting" time - claculate time differnece
 t_ende = time.time()
 print("-> processing time:")
 print('{:5.3f}s'.format(t_ende-t_start))
