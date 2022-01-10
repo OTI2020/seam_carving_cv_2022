@@ -11,7 +11,11 @@
 * The function `calc_seams_energie()` does not consider the image borders.
 * The function `calc_minimal_seam()` does not consider the image borders as well.
 * it is not the most cost-saving program
+* deleting seams does not realy work
+* until today the program only calculates vertikal seams (and tries to delete them)
 
+
+When I started programming with Python on Thursday, it looked very promising. Unfortunately, I could not completely fulfill the requirements without using more or copying libraries.
 
 ## submission:
 * delivery date: 2022-01-10
