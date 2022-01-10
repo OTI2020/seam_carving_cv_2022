@@ -4,6 +4,7 @@
 ## name:          Freiherr von Arnim, Gustav 
 ## mail:          gfreiher@uni-muenster.de
 ## matr.no.:      505 350
+## github:        https://github.com/OTI2020/seam_carving_cv_2022
 ## delivery date: 2022-01-10
 
 
@@ -161,7 +162,7 @@ def calc_minimal_seam(input_start_index, input_min_engy):
     for i in range(1, seam_length+2):
         seam_coordinates.append([temp_2, temp_3])
 
-        print(i, temp_2, temp_3)
+        # print(i, temp_2, temp_3)
         value_of_index = min_of_3(input_min_engy[temp_2][temp_1-1], input_min_engy[temp_2][temp_1], input_min_engy[temp_2][temp_1+1])    
         i_row_of_energy_map = input_min_engy[temp_2]
         temp_3 = find_index_of_value(value_of_index, i_row_of_energy_map) #, temp_1)
@@ -177,9 +178,17 @@ def calc_minimal_seam(input_start_index, input_min_engy):
 
 # delete minimal seam
 def delete_seam(input_image, input_seam_coordinates):
-    print(input_image.shape)
-    print(len(input_seam_coordinates))
-    print("no")
+    image_height, image_width, _ = input_image.shape
+    operating_image = input_image
+    for i in range(0, len(input_seam_coordinates)-1):
+        x_dim = input_seam_coordinates[i][1]
+        operating_image[i][x_dim] = -1
+
+    smaller_img = np.zeros((image_height, image_width-1, 3))
+
+
+    cv2.imwrite('smaller_image.jpg', smaller_img)
+
 
 
 # call functions
