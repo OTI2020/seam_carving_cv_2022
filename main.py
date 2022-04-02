@@ -3,7 +3,6 @@
 # submission
 ## name:          Freiherr von Arnim, Gustav 
 ## mail:          gfreiher@uni-muenster.de
-## matr.no.:      505 350
 ## github:        https://github.com/OTI2020/seam_carving_cv_2022
 ## delivery date: 2022-01-10
 
